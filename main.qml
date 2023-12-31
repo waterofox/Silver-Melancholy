@@ -9,6 +9,7 @@ ApplicationWindow {
     visible: true
     title: qsTr("Action Test")
     property double standartScale: 640.0
+    property double standartScaleY: 480.0
     property string jopka: "black";
     color: jopka
 
@@ -27,6 +28,9 @@ ApplicationWindow {
             property int jopaX: 0
             property int jopaY: 0
 
+            onWidthChanged: {mapRoot.model.updateParentScalw(mapRoot.width,mapRoot.height)}
+            onHeightChanged: {mapRoot.model.updateParentScalw(mapRoot.width,mapRoot.height)}
+
             anchors.fill: parent
 
             model: MyGameMap{}
@@ -34,8 +38,8 @@ ApplicationWindow {
             cellHeight: parent.height/8
             cellWidth: parent.width/11
 
-            onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScale - mapRoot.height/16,parent.width,parent.height)}
-            onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScale - mapRoot.height/16,parent.width,parent.height)}
+            onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScaleY - mapRoot.height/16)}
+            onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScaleY - mapRoot.height/16)}
 
             flickableDirection: Flickable.AutoFlickIfNeeded
             delegate:Rectangle
@@ -136,7 +140,7 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignTop
 
                     Layout.leftMargin:  actorRoot.xRelative * actorRoot.width / standartScale
-                    Layout.topMargin: actorRoot.yRelative * actorRoot.width / standartScale
+                    Layout.topMargin: actorRoot.yRelative * actorRoot.height / standartScaleY
 
                     color: "transparent"
 

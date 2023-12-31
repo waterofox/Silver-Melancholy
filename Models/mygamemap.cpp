@@ -61,16 +61,16 @@ void MyGameMap::cleanMap()
     }
 }
 
-bool MyGameMap::targetCell(const int &x, const int &y, const int &parent_width, const int& parent_height)
+bool MyGameMap::targetCell(const int &x, const int &y)
 {
 
-    if (parent_width ==0 or parent_height == 0)
+    if (parentWidth ==0 or parentHeight == 0)
     {
         return false;
     }
 
-    int relaheight = parent_height/8;
-    int relawidth = parent_width/11;
+    int relaheight = parentWidth/8;
+    int relawidth = parentWidth/11;
 
     int ychek = 0;
     int xchek =0;
@@ -96,6 +96,13 @@ bool MyGameMap::targetCell(const int &x, const int &y, const int &parent_width, 
     }
     emit this->dataChanged(createIndex(0, 1), createIndex(_width * _height, 1));
     return true;
+}
+
+void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
+{
+    this->parentHeight = parentH;
+    this->parentWidth = parentW;
+    qDebug() << "W: " << this->parentWidth << "H: " << this->parentHeight;
 }
 
 int MyGameMap::rowCount(const QModelIndex &parent) const

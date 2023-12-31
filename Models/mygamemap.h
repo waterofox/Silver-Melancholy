@@ -17,6 +17,9 @@ private:
         bool activeColision = false;
     };
 
+    int parentWidth;
+    int parentHeight;
+
 public:
 
     MyGameMap(const int& width = 11, const int& height = 8, QObject*parent = nullptr);
@@ -28,13 +31,17 @@ public:
 
     void cleanMap();
 
-    Q_INVOKABLE bool targetCell(const int& x,const  int& y,const  int& parent_width,const int& parent_height);
+    Q_INVOKABLE bool targetCell(const int& x,const  int& y);
+    Q_INVOKABLE void updateParentScalw(const int& parentW, const int& parentH);
+
 
     Q_INVOKABLE int rowCount(   const QModelIndex& parent) const override;
     Q_INVOKABLE int columnCount(const QModelIndex& parent) const override;
     Q_INVOKABLE QVariant data(const QModelIndex& index,int role ) const override;
     Q_INVOKABLE QModelIndex index(int row,int column,const QModelIndex& parent) const override;
     Q_INVOKABLE QModelIndex parent(const QModelIndex& child)const override;
+
+    bool checkColision(const int& ActorX, const int& ActorY);
 
 
 
