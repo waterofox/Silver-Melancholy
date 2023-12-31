@@ -53,6 +53,14 @@ void MyGameMap::createMap()
     this->_tabel[14].back_path = "qrc:/resources/GameAssets/col.png";
 }
 
+void MyGameMap::cleanMap()
+{
+    for(int i = 0; i < this->_width*this->_height;++i)
+    {
+        if(!_tabel[i].activeColision) this->_tabel[i].back_path = "qrc:/resources/GameAssets/void.png";
+    }
+}
+
 bool MyGameMap::targetCell(const int &x, const int &y, const int &parent_width, const int& parent_height)
 {
 
@@ -81,7 +89,11 @@ bool MyGameMap::targetCell(const int &x, const int &y, const int &parent_width, 
         ++counter;
     }
 
-    if(this->_tabel[counter].activeColision == false)this->_tabel[counter].back_path = "qrc:/resources/GameAssets/bar.png";
+    if(this->_tabel[counter].activeColision == false)
+    {
+        cleanMap();
+        this->_tabel[counter].back_path = "qrc:/resources/GameAssets/bar.png";
+    }
     emit this->dataChanged(createIndex(0, 1), createIndex(_width * _height, 1));
     return true;
 }

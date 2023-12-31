@@ -26,6 +26,8 @@ public:
     int getHeight();
     void createMap();
 
+    void cleanMap();
+
     Q_INVOKABLE bool targetCell(const int& x,const  int& y,const  int& parent_width,const int& parent_height);
     Q_INVOKABLE bool checkColision(const int& x,const  int& y,const  int& parent_width,const int& parent_height,const int& side);
 
