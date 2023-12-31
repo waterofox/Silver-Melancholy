@@ -20,6 +20,9 @@ private:
     int parentWidth;
     int parentHeight;
 
+    int CellHeigth;
+    int CellWidth;
+
 public:
 
     MyGameMap(const int& width = 11, const int& height = 8, QObject*parent = nullptr);
@@ -33,6 +36,8 @@ public:
 
     Q_INVOKABLE bool targetCell(const int& x,const  int& y);
     Q_INVOKABLE void updateParentScalw(const int& parentW, const int& parentH);
+    Q_INVOKABLE bool checkColision(const int& ActorX, const int& ActorY);
+
 
 
     Q_INVOKABLE int rowCount(   const QModelIndex& parent) const override;
@@ -40,8 +45,6 @@ public:
     Q_INVOKABLE QVariant data(const QModelIndex& index,int role ) const override;
     Q_INVOKABLE QModelIndex index(int row,int column,const QModelIndex& parent) const override;
     Q_INVOKABLE QModelIndex parent(const QModelIndex& child)const override;
-
-    bool checkColision(const int& ActorX, const int& ActorY);
 
 
 

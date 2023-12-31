@@ -36,7 +36,7 @@ private:
         RelativeXRole = 257,
         RelativeYRole = 256,
         RelativeFrameRole = 258,
-        RelativeColisionRole = 259,
+        RelativeAssetonRole = 259,
     };
     enum SetPositon
     {

@@ -38,8 +38,8 @@ ApplicationWindow {
             cellHeight: parent.height/8
             cellWidth: parent.width/11
 
-            onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScaleY - mapRoot.height/16)}
-            onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/16,jopaY*mapRoot.width/standartScaleY - mapRoot.height/16)}
+            onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
+            onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
 
             flickableDirection: Flickable.AutoFlickIfNeeded
             delegate:Rectangle
@@ -134,7 +134,7 @@ ApplicationWindow {
                 {
                     id:actor
 
-                    Layout.minimumWidth: actorArea.height/8
+                    Layout.minimumWidth: actorArea.width/11
                     Layout.minimumHeight: actorArea.height/8
 
                     Layout.alignment: Qt.AlignTop

@@ -68,10 +68,6 @@ bool MyGameMap::targetCell(const int &x, const int &y)
     {
         return false;
     }
-
-    int relaheight = parentWidth/8;
-    int relawidth = parentWidth/11;
-
     int ychek = 0;
     int xchek =0;
 
@@ -80,12 +76,12 @@ bool MyGameMap::targetCell(const int &x, const int &y)
 
     while(ychek < y)
     {
-        ychek+=relaheight;
+        ychek+=CellHeigth;
         counter += 11;
     }
     while(xchek < x)
     {
-        xchek += relawidth;
+        xchek += CellWidth;
         ++counter;
     }
 
@@ -102,7 +98,15 @@ void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
 {
     this->parentHeight = parentH;
     this->parentWidth = parentW;
+
+    this->CellWidth = parentW/11;
+    this->CellHeigth = parentH/8;
     qDebug() << "W: " << this->parentWidth << "H: " << this->parentHeight;
+}
+
+bool MyGameMap::checkColision(const int &ActorX, const int &ActorY)
+{
+
 }
 
 int MyGameMap::rowCount(const QModelIndex &parent) const

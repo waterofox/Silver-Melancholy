@@ -72,7 +72,7 @@ QVariant ActorModel::data(const QModelIndex &index, int role) const
         return "an Actor";
     }
         break;
-    case ModelRole::RelativeColisionRole:{
+    case ModelRole::RelativeAssetonRole:{
         return QString::number(this->newStats._assetSize);
     }
         break;
@@ -125,7 +125,7 @@ QHash<int, QByteArray> ActorModel::roleNames() const
     roles[ModelRole::DisplayRole] = "display";
     roles[ModelRole::EditRole] = "edit";
     roles[ModelRole::WhatsThisRole] = "whats_this";
-    roles[ModelRole::RelativeColisionRole] = "actor_";
+    roles[ModelRole::RelativeAssetonRole] = "actor_";
     roles[ModelRole::RelativeXRole] = "actor_x";
     roles[ModelRole::RelativeYRole] = "actor_y";
     roles[ModelRole::RelativeFrameRole] = "actor_frame";
