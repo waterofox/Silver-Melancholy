@@ -1,0 +1,80 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import CPP 1.0
+ApplicationWindow {
+    width: 640
+    height: 480
+    visible: true
+    title: qsTr("Action Test")
+    property double standartScale: 640.0
+    GridView
+    {
+        property double scale: root.width/8
+
+        model: ActorModel {}
+        id:viewActor
+        cellHeight: scale
+        cellWidth: scale
+
+        Layout.topMargin: (root.yRelative*root.width) / standartScale
+        Layout.leftMargin:(root.xRelative*root.width) / standartScale
+
+        Layout.alignment: Qt.AlignTop
+
+        Layout.minimumWidth: scale
+        Layout.minimumHeight: scale
+
+        delegate:             Image { id:delActor
+
+            property string colision: actor_;
+
+            function parse()
+            {
+                console.log(colision);
+                return Number(colision);                }
+
+            source: actor_frame
+            sourceSize.width: viewActor.width * delActor.parse();
+            fillMode: Image.PreserveAspectCrop
+        }
+    RowLayout
+    {
+        id:root
+        anchors.fill: parent
+        property double xRelative: 100;
+        property double yRelative: 100;
+        }
+        SequentialAnimation
+        {
+            NumberAnimation {
+                target: root
+                property: "xRelative"
+                to: 200;
+                duration: 1000
+            }
+            NumberAnimation {
+                target: root
+                property: "xRelative"
+                to: 100;
+                duration: 1000
+            }
+            loops: Animation.Infinite
+            running: true
+
+        }
+
+
+    }
+    Rectangle
+    {
+        anchors.fill: root
+        id:root_border
+        color: "transparent"
+        border
+        {
+            width:3
+            color:"black"
+        }
+    }
+}

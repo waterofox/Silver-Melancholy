@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>GameAssets/f1.png</file>
+        <file>GameAssets/f2.png</file>
+        <file>GameAssets/back.jpg</file>
+        <file>GameAssets/void.png</file>
+        <file>GameAssets/bar.png</file>
+        <file>GameAssets/Sprite-0001.png</file>
+        <file>GameAssets/Sprite-0003.png</file>
+        <file>GameAssets/col.png</file>
+    </qresource>
+</RCC>
