@@ -73,7 +73,7 @@ QVariant ActorModel::data(const QModelIndex &index, int role) const
     }
         break;
     case ModelRole::RelativeColisionRole:{
-        return QString::number(this->newStats._colisionShape);
+        return QString::number(this->newStats._assetSize);
     }
         break;
     case ModelRole::RelativeXRole:{

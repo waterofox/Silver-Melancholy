@@ -84,34 +84,26 @@ ApplicationWindow {
 
             focus: true
             Keys.onPressed:  {
-                if(event.key === Qt.Key_W && mapRoot.model.checkColision(xRelative*mapRoot.width/standartScale - mapRoot.height/16,yRelative*mapRoot.width/standartScale- mapRoot.height/16,parent.width,parent.height,3))
+                if(event.key === Qt.Key_W)
                 {
                     actorRoot.model.setRelativePositon(3);
                     moveYFlag = true
                 }
-                              if(event.key === Qt.Key_S && mapRoot.model.checkColision(xRelative*mapRoot.width/standartScale- mapRoot.height/16,yRelative*mapRoot.width/standartScale - mapRoot.height/16,parent.width,parent.height,4))
-                              {
-                                  actorRoot.model.setRelativePositon(4);
-                                  moveYFlag = true
-                              }
-                              if(event.key === Qt.Key_D)
-                              {
-                                  if(mapRoot.model.checkColision(xRelative*mapRoot.width/standartScale- mapRoot.height/16,yRelative*mapRoot.width/standartScale- mapRoot.height/16 ,parent.width,parent.height,1))
-                                  {
-                                      actorRoot.model.setRelativePositon(1);
-                                      moveXFlag = true
-                                  }
-                                  else
-                                  {
-                                       moveXFlag = false;
-                                  }
-                              }
-
-                              if(event.key === Qt.Key_A && mapRoot.model.checkColision(xRelative*mapRoot.width/standartScale- mapRoot.height/16,yRelative*mapRoot.width/standartScale - mapRoot.height/16,parent.width,parent.height,2))
-                              {
-                                  actorRoot.model.setRelativePositon(2);
-                                  moveXFlag = true
-                              }
+                if(event.key === Qt.Key_S)
+                {
+                    actorRoot.model.setRelativePositon(4);
+                    moveYFlag = true
+                }
+                if(event.key === Qt.Key_D)
+                {
+                    actorRoot.model.setRelativePositon(1);
+                    moveXFlag = true
+                }
+                if(event.key === Qt.Key_A)
+                {
+                    actorRoot.model.setRelativePositon(2);
+                    moveXFlag = true
+                }
             }
             Keys.onReleased: {if(event.key === Qt.Key_W){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
                               if(event.key === Qt.Key_S){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }

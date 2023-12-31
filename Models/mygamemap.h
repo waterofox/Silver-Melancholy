@@ -29,7 +29,6 @@ public:
     void cleanMap();
 
     Q_INVOKABLE bool targetCell(const int& x,const  int& y,const  int& parent_width,const int& parent_height);
-    Q_INVOKABLE bool checkColision(const int& x,const  int& y,const  int& parent_width,const int& parent_height,const int& side);
 
     Q_INVOKABLE int rowCount(   const QModelIndex& parent) const override;
     Q_INVOKABLE int columnCount(const QModelIndex& parent) const override;
