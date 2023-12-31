@@ -61,12 +61,12 @@ void MyGameMap::cleanMap()
     }
 }
 
-bool MyGameMap::targetCell(const int &x, const int &y)
+int MyGameMap::targetCell(const int &x, const int &y)
 {
 
     if (parentWidth ==0 or parentHeight == 0)
     {
-        return false;
+        return -1;
     }
     int ychek = 0;
     int xchek =0;
@@ -84,14 +84,7 @@ bool MyGameMap::targetCell(const int &x, const int &y)
         xchek += CellWidth;
         ++counter;
     }
-
-    if(this->_tabel[counter].activeColision == false)
-    {
-        cleanMap();
-        this->_tabel[counter].back_path = "qrc:/resources/GameAssets/bar.png";
-    }
-    emit this->dataChanged(createIndex(0, 1), createIndex(_width * _height, 1));
-    return true;
+    return counter;
 }
 
 void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
@@ -101,11 +94,57 @@ void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
 
     this->CellWidth = parentW/11;
     this->CellHeigth = parentH/8;
-    qDebug() << "W: " << this->parentWidth << "H: " << this->parentHeight;
 }
 
-bool MyGameMap::checkColision(const int &ActorX, const int &ActorY)
+bool MyGameMap::checkColision(const int &ActorX, const int &ActorY,const int &side)
 {
+
+    switch (side) {
+    case side::Ds:{
+        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/16)].activeColision)
+        {
+            return false;
+        }
+        if(this->_tabel[targetCell(ActorX,ActorY)].activeColision)
+        {
+            return false;
+        }
+    }break;
+    case side::As:{
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/16)].activeColision)
+        {
+            return false;
+        }
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)].activeColision)
+        {
+            return false;
+        }
+    }break;
+    case side::Ws:{
+        qDebug() << "Cel is: " << targetCell(ActorX,ActorY-this->parentHeight/8);
+        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/8)].activeColision)
+        {
+            return false;
+        }
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/8)].activeColision)
+        {
+            return false;
+        }
+    }break;
+    case side::Ss:{
+        if(this->_tabel[targetCell(ActorX,ActorY)].activeColision)
+        {
+            return false;
+        }
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)].activeColision)
+        {
+            return false;
+        }
+    }
+    default:
+        break;
+    }
+    return true;
 
 }
 

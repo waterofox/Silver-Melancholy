@@ -5,7 +5,7 @@ ActorModel::ActorModel(const int& xNewPosition,const int& yNewPosition,QObject* 
     Q_UNUSED(parent)
 
     this->_farmesList.append("qrc:/resources/GameAssets/f1.png");
-    this->_farmesList.append("qrc:/resources/GameAssets/Sprite-0003.png");
+    this->_farmesList.append("qrc:/resources/GameAssets/f2.png");
 
     this->newStats._xRelativePosition = xNewPosition;
     this->newStats._yRelativePosition = yNewPosition;
@@ -59,7 +59,6 @@ double ActorModel::getY()
 {
     return this->newStats._yRelativePosition;
 }
-
 QVariant ActorModel::data(const QModelIndex &index, int role) const
 {
     Q_UNUSED(index)

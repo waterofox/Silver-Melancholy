@@ -38,8 +38,8 @@ ApplicationWindow {
             cellHeight: parent.height/8
             cellWidth: parent.width/11
 
-            onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
-            onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
+            //onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
+            //onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
 
             flickableDirection: Flickable.AutoFlickIfNeeded
             delegate:Rectangle
@@ -78,35 +78,62 @@ ApplicationWindow {
             cellHeight: parent.height
             cellWidth: parent.width
 
+            property int xScaled : xRelative*actorRoot.width/standartScale
+            property int yScaled : yRelative*actorRoot.height/standartScaleY
+
             property bool moveYFlag: false
             property bool moveXFlag: false
 
             flickableDirection: Flickable.AutoFlickIfNeeded
 
-            onXRelativeChanged: {mapRoot.jopaX = xRelative}
-            onYRelativeChanged: {mapRoot.jopaY = yRelative}
+            //onXRelativeChanged: {mapRoot.jopaX = xScaled}
+            //onYRelativeChanged: {mapRoot.jopaY = yScaled}
 
             focus: true
             Keys.onPressed:  {
                 if(event.key === Qt.Key_W)
                 {
-                    actorRoot.model.setRelativePositon(3);
-                    moveYFlag = true
+                    if(mapRoot.model.checkColision(xScaled, yScaled,1))
+                    {
+                        actorRoot.model.setRelativePositon(3);
+                        moveYFlag = true
+                    }
+                    else
+                    {
+                        moveYFlag = false;
+                    }
                 }
                 if(event.key === Qt.Key_S)
                 {
-                    actorRoot.model.setRelativePositon(4);
-                    moveYFlag = true
+                    if(mapRoot.model.checkColision(xScaled,yScaled,3))
+                    {
+                        actorRoot.model.setRelativePositon(4);
+                        moveYFlag = true
+                    }
+                    else
+                    {
+                        moveYFlag = false;
+                    }
                 }
                 if(event.key === Qt.Key_D)
                 {
-                    actorRoot.model.setRelativePositon(1);
-                    moveXFlag = true
+                    if(mapRoot.model.checkColision(xScaled,yScaled,4))
+                    {
+                        actorRoot.model.setRelativePositon(1);
+                        moveXFlag = true
+                    }
                 }
                 if(event.key === Qt.Key_A)
                 {
-                    actorRoot.model.setRelativePositon(2);
-                    moveXFlag = true
+                    if(mapRoot.model.checkColision(xScaled,yScaled,2))
+                    {
+                        actorRoot.model.setRelativePositon(2);
+                        moveXFlag = true
+                    }
+                    else
+                    {
+                        moveXFlag = false;
+                    }
                 }
             }
             Keys.onReleased: {if(event.key === Qt.Key_W){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
@@ -139,8 +166,8 @@ ApplicationWindow {
 
                     Layout.alignment: Qt.AlignTop
 
-                    Layout.leftMargin:  actorRoot.xRelative * actorRoot.width / standartScale
-                    Layout.topMargin: actorRoot.yRelative * actorRoot.height / standartScaleY
+                    Layout.leftMargin:  actorRoot.xScaled
+                    Layout.topMargin: actorRoot.yScaled
 
                     color: "transparent"
 
@@ -184,17 +211,6 @@ ApplicationWindow {
                     loops: Animation.Infinite
                     running: actorRoot.moveXFlag
                 }
-            }
-        }
-        Rectangle
-        {
-            anchors.fill: actorRoot
-            id:root_border
-            color: "transparent"
-            border
-            {
-                width:3
-                color:"black"
             }
         }
     }

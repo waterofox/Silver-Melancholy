@@ -22,7 +22,7 @@ private:
         int _xyRelativeSide = 0; // 0 -> 1 <- 2^ 3 down
         //front stats
         double _assetSize = 1.0;
-        double _speed = 150.0;
+        double _speed = 100.0;
         QString _relativeFrame;
     };
     QList<QString> _farmesList;

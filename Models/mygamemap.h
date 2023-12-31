@@ -34,9 +34,9 @@ public:
 
     void cleanMap();
 
-    Q_INVOKABLE bool targetCell(const int& x,const  int& y);
+    Q_INVOKABLE  int targetCell(const int& x,const  int& y);
     Q_INVOKABLE void updateParentScalw(const int& parentW, const int& parentH);
-    Q_INVOKABLE bool checkColision(const int& ActorX, const int& ActorY);
+    Q_INVOKABLE bool checkColision(const int& ActorX, const int& ActorY,const int& side);
 
 
 
@@ -59,6 +59,13 @@ private:
         WhatsThisRole = 5,
         FrontRole = 257,
         BackRole = 256,
+    };
+    enum side
+    {
+        Ws = 1,
+        As = 2,
+        Ss = 3,
+        Ds = 4,
     };
 
 
