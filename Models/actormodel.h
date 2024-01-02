@@ -53,6 +53,7 @@ public:
     Q_INVOKABLE bool setRelativePositon(const int&);
     Q_INVOKABLE bool updateRelativePosition(const int&,const int&);
 
+
     Q_INVOKABLE double getX();
     Q_INVOKABLE double getY();
 

@@ -91,6 +91,11 @@ ApplicationWindow {
 
             focus: true
             Keys.onPressed:  {
+                if(event.key === Qt.Key_Enter || event.key === Qt.Key_X)
+                {
+                    console.log("Huh?")
+                    mapRoot.model.isQuest(xScaled,yScaled)
+                }
                 if(event.key === Qt.Key_W)
                 {
                     if(mapRoot.model.checkColision(xScaled, yScaled,1))
@@ -122,6 +127,10 @@ ApplicationWindow {
                         actorRoot.model.setRelativePositon(1);
                         moveXFlag = true
                     }
+                    else
+                    {
+                        moveXFlag = false;
+                    }
                 }
                 if(event.key === Qt.Key_A)
                 {
@@ -136,7 +145,8 @@ ApplicationWindow {
                     }
                 }
             }
-            Keys.onReleased: {if(event.key === Qt.Key_W){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
+            Keys.onReleased: {
+                if(event.key === Qt.Key_W){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
                               if(event.key === Qt.Key_S){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
                               if(event.key === Qt.Key_D){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
                               if(event.key === Qt.Key_A){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }}
@@ -212,6 +222,12 @@ ApplicationWindow {
                     running: actorRoot.moveXFlag
                 }
             }
+        }
+        GridView
+        {
+            id:dialogRoot
+            anchors.fill: parent
+            flickableDirection: Flickable.AutoFlickIfNeeded
         }
     }
 }

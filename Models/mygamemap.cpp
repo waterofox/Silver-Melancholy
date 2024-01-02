@@ -34,6 +34,8 @@ int MyGameMap::getHeight()
 
 void MyGameMap::createMap()
 {
+
+    ///COLLIISON
     this->_tabel[64].activeColision = true;
     this->_tabel[64].back_path = "qrc:/resources/GameAssets/col.png";
 
@@ -51,7 +53,14 @@ void MyGameMap::createMap()
 
     this->_tabel[14].activeColision = true;
     this->_tabel[14].back_path = "qrc:/resources/GameAssets/col.png";
+
+    //ACTIVE QUESTS
+
+    this->_tabel[30].ActiveQuest = quests::TestQuest;
+    this->_tabel[30].isActiveQuest =true;
+    this->_tabel[30].back_path = "qrc:/resources/GameAssets/quest.png";
 }
+
 
 void MyGameMap::cleanMap()
 {
@@ -61,12 +70,12 @@ void MyGameMap::cleanMap()
     }
 }
 
-int MyGameMap::targetCell(const int &x, const int &y)
+QList<int> MyGameMap::targetCell(const int &x, const int &y)
 {
 
     if (parentWidth ==0 or parentHeight == 0)
     {
-        return -1;
+        return QList<int>();
     }
     int ychek = 0;
     int xchek =0;
@@ -84,7 +93,10 @@ int MyGameMap::targetCell(const int &x, const int &y)
         xchek += CellWidth;
         ++counter;
     }
-    return counter;
+    QList<int> answer;
+    answer.append(counter);
+    answer.append(xchek);
+    return answer;
 }
 
 void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
@@ -98,45 +110,43 @@ void MyGameMap::updateParentScalw(const int &parentW, const int &parentH)
 
 bool MyGameMap::checkColision(const int &ActorX, const int &ActorY,const int &side)
 {
-
     switch (side) {
     case side::Ds:{
-        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/16)].activeColision)
+        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/16)[0]].activeColision)
         {
             return false;
         }
-        if(this->_tabel[targetCell(ActorX,ActorY)].activeColision)
+        if(this->_tabel[targetCell(ActorX,ActorY)[0]].activeColision)
         {
             return false;
         }
     }break;
     case side::As:{
-        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/16)].activeColision)
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/16)[0]].activeColision)
         {
             return false;
         }
-        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)].activeColision)
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)[0]].activeColision)
         {
             return false;
         }
     }break;
     case side::Ws:{
-        qDebug() << "Cel is: " << targetCell(ActorX,ActorY-this->parentHeight/8);
-        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/8)].activeColision)
+        if(this->_tabel[targetCell(ActorX,ActorY-this->parentHeight/8)[0]].activeColision)
         {
             return false;
         }
-        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/8)].activeColision)
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY-this->parentHeight/8)[0]].activeColision)
         {
             return false;
         }
     }break;
     case side::Ss:{
-        if(this->_tabel[targetCell(ActorX,ActorY)].activeColision)
+        if(this->_tabel[targetCell(ActorX,ActorY)[0]].activeColision)
         {
             return false;
         }
-        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)].activeColision)
+        if(this->_tabel[targetCell(ActorX-this->parentWidth/11,ActorY)[0]].activeColision)
         {
             return false;
         }
@@ -144,8 +154,26 @@ bool MyGameMap::checkColision(const int &ActorX, const int &ActorY,const int &si
     default:
         break;
     }
+
+
     return true;
 
+}
+
+int MyGameMap::getQuest(const int &idCell)
+{
+    return this->_tabel[idCell].ActiveQuest;
+}
+
+int MyGameMap::isQuest(const int &actorX, const int &actorY)
+{
+    if(this->_tabel[targetCell(actorX-this->parentWidth/22,actorY-this->parentHeight/16)[0]].isActiveQuest)
+    {
+        qDebug() << "Quest";
+        return this->_tabel[targetCell(actorX-this->parentWidth/22,actorY-this->parentHeight/16)[0]].ActiveQuest;
+    }
+    qDebug() << "No quest";
+    return -1;
 }
 
 int MyGameMap::rowCount(const QModelIndex &parent) const

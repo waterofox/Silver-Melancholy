@@ -8,5 +8,6 @@
         <file>GameAssets/Sprite-0001.png</file>
         <file>GameAssets/Sprite-0003.png</file>
         <file>GameAssets/col.png</file>
+        <file>GameAssets/quest.png</file>
     </qresource>
 </RCC>
