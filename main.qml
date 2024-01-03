@@ -228,6 +228,37 @@ ApplicationWindow {
             id:dialogRoot
             anchors.fill: parent
             flickableDirection: Flickable.AutoFlickIfNeeded
+            model: QuestModel{}
+
+            delegate: RowLayout
+            {
+                id:questWindowArea
+                anchors.fill: parent
+
+                Rectangle
+                {
+                    id:questWindow
+                    color: "black";
+                    Layout.minimumWidth: parent.width/3
+                    Layout.minimumHeight: 100*dialogRoot.height/standartScaleY
+                    Layout.leftMargin: actorRoot.xScaled - parent.width/3
+                    Layout.topMargin: actorRoot.yScaled - 50*dialogRoot.height/standartScaleY
+                    border
+                    {
+                        color: "white"
+                        width: 3*dialogRoot.width/standartScale
+                    }
+                    Text {
+                        id: questText
+                        text: display
+                        color: "white";
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10*dialogRoot.width/standartScale
+                        anchors.top:parent.top
+                        anchors.topMargin: 10*dialogRoot.height/standartScaleY
+                    }
+                }
+            }
         }
     }
 }
