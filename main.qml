@@ -91,12 +91,12 @@ ApplicationWindow {
 
             focus: true
             Keys.onPressed:  {
-                if(event.key === Qt.Key_Enter || event.key === Qt.Key_X)
+                if(event.key === Qt.Key_X)
                 {
                     console.log("Huh?")
                     mapRoot.model.isQuest(xScaled,yScaled)
                 }
-                if(event.key === Qt.Key_W)
+                if(event.key === Qt.Key_Up)
                 {
                     if(mapRoot.model.checkColision(xScaled, yScaled,1))
                     {
@@ -108,7 +108,7 @@ ApplicationWindow {
                         moveYFlag = false;
                     }
                 }
-                if(event.key === Qt.Key_S)
+                if(event.key === Qt.Key_Down)
                 {
                     if(mapRoot.model.checkColision(xScaled,yScaled,3))
                     {
@@ -120,7 +120,7 @@ ApplicationWindow {
                         moveYFlag = false;
                     }
                 }
-                if(event.key === Qt.Key_D)
+                if(event.key === Qt.Key_Right)
                 {
                     if(mapRoot.model.checkColision(xScaled,yScaled,4))
                     {
@@ -132,7 +132,7 @@ ApplicationWindow {
                         moveXFlag = false;
                     }
                 }
-                if(event.key === Qt.Key_A)
+                if(event.key === Qt.Key_Left)
                 {
                     if(mapRoot.model.checkColision(xScaled,yScaled,2))
                     {
@@ -146,10 +146,10 @@ ApplicationWindow {
                 }
             }
             Keys.onReleased: {
-                if(event.key === Qt.Key_W){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
-                              if(event.key === Qt.Key_S){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
-                              if(event.key === Qt.Key_D){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
-                              if(event.key === Qt.Key_A){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }}
+                if(event.key === Qt.Key_Up){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
+                              if(event.key === Qt.Key_Down){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
+                              if(event.key === Qt.Key_Right){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
+                              if(event.key === Qt.Key_Left){moveXFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }}
 
             delegate:
             RowLayout
