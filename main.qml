@@ -95,7 +95,7 @@ ApplicationWindow {
                 if(event.key === Qt.Key_X)
                 {
                     jopa = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
-                    dialogRoot.model.jopaSET()
+                    questRoot.model.spokoynoSachenka(jopa);
                 }
                 if(event.key === Qt.Key_Up)
                 {
@@ -226,10 +226,10 @@ ApplicationWindow {
         }
         GridView
         {
-            id:dialogRoot
+            id:questRoot
             anchors.fill: parent
             flickableDirection: Flickable.AutoFlickIfNeeded
-            model: QuestModel{}
+            model: MyQuestModel{}
 
             delegate: RowLayout
             {
@@ -241,22 +241,22 @@ ApplicationWindow {
                     id:questWindow
                     color: "black";
                     Layout.minimumWidth: parent.width/3
-                    Layout.minimumHeight: 100*dialogRoot.height/standartScaleY
+                    Layout.minimumHeight: 100*questRoot.height/standartScaleY
                     Layout.leftMargin: actorRoot.xScaled - parent.width/3
-                    Layout.topMargin: actorRoot.yScaled - 50*dialogRoot.height/standartScaleY
+                    Layout.topMargin: actorRoot.yScaled - 50*questRoot.height/standartScaleY
                     border
                     {
                         color: "white"
-                        width: 3*dialogRoot.width/standartScale
+                        width: 3*questRoot.width/standartScale
                     }
                     Text {
                         id: questText
                         text: display
                         color: "white";
                         anchors.left: parent.left
-                        anchors.leftMargin: 10*dialogRoot.width/standartScale
+                        anchors.leftMargin: 10*questRoot.width/standartScale
                         anchors.top:parent.top
-                        anchors.topMargin: 10*dialogRoot.height/standartScaleY
+                        anchors.topMargin: 10*questRoot.height/standartScaleY
                     }
                 }
             }

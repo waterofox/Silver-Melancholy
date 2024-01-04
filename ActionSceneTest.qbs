@@ -15,6 +15,8 @@ CppApplication {
         "Models/actormodel.h",
         "Models/mygamemap.cpp",
         "Models/mygamemap.h",
+        "Models/myquestmodel.cpp",
+        "Models/myquestmodel.h",
         "main.cpp",
         "resource.qrc",
     ]
