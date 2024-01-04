@@ -83,6 +83,7 @@ ApplicationWindow {
 
             property bool moveYFlag: false
             property bool moveXFlag: false
+            property int jopa : 0
 
             flickableDirection: Flickable.AutoFlickIfNeeded
 
@@ -93,8 +94,8 @@ ApplicationWindow {
             Keys.onPressed:  {
                 if(event.key === Qt.Key_X)
                 {
-                    console.log("Huh?")
-                    mapRoot.model.isQuest(xScaled,yScaled)
+                    jopa = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
+                    dialogRoot.model.jopaSET()
                 }
                 if(event.key === Qt.Key_Up)
                 {

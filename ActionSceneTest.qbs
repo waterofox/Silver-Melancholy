@@ -16,8 +16,6 @@ CppApplication {
         "Models/mygamemap.cpp",
         "Models/mygamemap.h",
         "main.cpp",
-        "questmodel.cpp",
-        "questmodel.h",
         "resource.qrc",
     ]
     Group {

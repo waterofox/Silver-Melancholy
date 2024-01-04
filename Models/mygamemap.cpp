@@ -165,12 +165,13 @@ int MyGameMap::getQuest(const int &idCell)
     return this->_tabel[idCell].ActiveQuest;
 }
 
-int MyGameMap::isQuest(const int &actorX, const int &actorY)
+ int MyGameMap::isQuest(const int &actorX, const int &actorY)
 {
-    if(this->_tabel[targetCell(actorX-this->parentWidth/22,actorY-this->parentHeight/16)[0]].isActiveQuest)
+     int jopa = targetCell(actorX-this->parentWidth/22,actorY-this->parentHeight/16)[0];
+    if(this->_tabel[jopa].isActiveQuest)
     {
         qDebug() << "Quest";
-        return this->_tabel[targetCell(actorX-this->parentWidth/22,actorY-this->parentHeight/16)[0]].ActiveQuest;
+        return this->getQuest(jopa);
     }
     qDebug() << "No quest";
     return -1;
