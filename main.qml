@@ -230,7 +230,30 @@ ApplicationWindow {
             anchors.fill: parent
             flickableDirection: Flickable.AutoFlickIfNeeded
             model: MyQuestModel{}
-
+            property double xRelativePosition: actorRoot.xScaled - parent.width/3
+            property double yRelativePosition: actorRoot.yScaled - 50*questRoot.height/standartScaleY
+            property double xPosition: xRelativePosition
+            property double yPosition: yRelativePosition
+            onXRelativePositionChanged:{
+                if(xRelativePosition <=0)
+                {
+                    xPosition = xRelativePosition +parent.width/2.25
+                }
+                else
+                {
+                    xPosition = xRelativePosition
+                }
+            }
+            onYRelativePositionChanged:{
+                if(yRelativePosition <=0)
+                {
+                    yPosition = yRelativePosition + 60*questRoot.height/standartScaleY
+                }
+                else
+                {
+                    yPosition = yRelativePosition
+                }
+            }
             delegate: RowLayout
             {
                 id:questWindowArea
@@ -242,8 +265,8 @@ ApplicationWindow {
                     color: "black";
                     Layout.minimumWidth: parent.width/3
                     Layout.minimumHeight: 100*questRoot.height/standartScaleY
-                    Layout.leftMargin: actorRoot.xScaled - parent.width/3
-                    Layout.topMargin: actorRoot.yScaled - 50*questRoot.height/standartScaleY
+                    Layout.leftMargin: questRoot.xPosition
+                    Layout.topMargin: questRoot.yPosition
                     border
                     {
                         color: "white"
