@@ -94,11 +94,23 @@ ApplicationWindow {
             Keys.onPressed:  {
                 if(event.key === Qt.Key_X)
                 {
-                    jopa = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
-                    questRoot.model.spokoynoSachenka(jopa);
+                    if(questRoot.showFlag === false)
+                    {
+                        showAnimation.start()
+                        jopa = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
+                        questRoot.model.spokoynoSachenka(jopa);
+                        questRoot.showFlag = true
+                    }
+                    else
+                    {
+                        hideAnimation.start()
+                        questRoot.showFlag = false
+                    }
                 }
+                if(questRoot.showFlag) {return}
                 if(event.key === Qt.Key_Up)
                 {
+
                     if(mapRoot.model.checkColision(xScaled, yScaled,1))
                     {
                         actorRoot.model.setRelativePositon(3);
@@ -233,7 +245,9 @@ ApplicationWindow {
             property double xRelativePosition: actorRoot.xScaled - parent.width/3
             property double yRelativePosition: actorRoot.yScaled - 50*questRoot.height/standartScaleY
             property double xPosition: xRelativePosition
+            property bool showFlag: false
             property double yPosition: yRelativePosition
+            property double hidePosition: mapRoot.height
             onXRelativePositionChanged:{
                 if(xRelativePosition <=0)
                 {
@@ -254,6 +268,26 @@ ApplicationWindow {
                     yPosition = yRelativePosition
                 }
             }
+
+
+
+            NumberAnimation {
+                id:showAnimation
+                target: questRoot
+                property: "hidePosition"
+                duration: 200
+                to:0
+                running: false
+            }
+
+            NumberAnimation {
+                id:hideAnimation
+                target: questRoot
+                property: "hidePosition"
+                duration: 200
+                to:mapRoot.height
+                running: false
+            }
             delegate: RowLayout
             {
                 id:questWindowArea
@@ -266,7 +300,7 @@ ApplicationWindow {
                     Layout.minimumWidth: parent.width/3
                     Layout.minimumHeight: 100*questRoot.height/standartScaleY
                     Layout.leftMargin: questRoot.xPosition
-                    Layout.topMargin: questRoot.yPosition
+                    Layout.topMargin: questRoot.yPosition + questRoot.hidePosition
                     border
                     {
                         color: "white"
@@ -294,7 +328,6 @@ ApplicationWindow {
                             to: questText.sourceLenght
                             duration: 1000
                         }
-
                     }
                 }
             }
