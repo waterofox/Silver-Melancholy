@@ -274,12 +274,27 @@ ApplicationWindow {
                     }
                     Text {
                         id: questText
-                        text: display
                         color: "white";
                         anchors.left: parent.left
                         anchors.leftMargin: 10*questRoot.width/standartScale
                         anchors.top:parent.top
                         anchors.topMargin: 10*questRoot.height/standartScaleY
+                        property int index
+                        property string sourceTex: display
+                        property  int sourceLenght: 0
+                        onSourceTexChanged: {
+                            index = 0
+                            sourceLenght = sourceTex.length
+                            textAnimation.start()
+                        }
+                        text:sourceTex.slice(0,++index)
+
+                        NumberAnimation on index {
+                            id:textAnimation
+                            to: questText.sourceLenght
+                            duration: 1000
+                        }
+
                     }
                 }
             }
