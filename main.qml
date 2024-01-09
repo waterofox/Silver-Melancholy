@@ -79,12 +79,6 @@ ApplicationWindow {
             //active event
             property int ev : 0
 
-            //movement flags
-            property bool moveToRigth: false
-            property bool moveToLeft:  false
-            property bool moveToUp:    false
-            property bool movwToDown:  false
-
             flickableDirection: Flickable.AutoFlickIfNeeded
 
             focus: true
@@ -132,6 +126,7 @@ ApplicationWindow {
                 }
                 if(event.key === Qt.Key_Right)
                 {
+
                     if(mapRoot.model.checkColision(xScaled,yScaled,4))
                     {
                         actorRoot.model.setRelativePositon(1);

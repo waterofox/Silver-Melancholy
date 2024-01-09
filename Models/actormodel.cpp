@@ -59,6 +59,19 @@ double ActorModel::getY()
 {
     return this->newStats._yRelativePosition;
 }
+int ActorModel::getActorHP()
+{
+    return this->newStats.hpActor;
+}
+int ActorModel::getActorLV()
+{
+    return this->newStats.lvActor;
+}
+
+QString ActorModel::getActorName()
+{
+    return this->newStats.nameActor;
+}
 QVariant ActorModel::data(const QModelIndex &index, int role) const
 {
     Q_UNUSED(index)

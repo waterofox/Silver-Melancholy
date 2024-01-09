@@ -23,11 +23,13 @@ private:
         //front stats
         double _assetSize = 1.0;
         double _speed = 100.0;
+        int hpActor = 24;
+        int lvActor = 1;
+        QString nameActor = "Controller";
         QString _relativeFrame;
     };
     QList<QString> _farmesList;
     ActorStats newStats;
-
     enum ModelRole
     {
         DisplayRole = 0,
@@ -52,10 +54,12 @@ public:
 
     Q_INVOKABLE bool setRelativePositon(const int&);
     Q_INVOKABLE bool updateRelativePosition(const int&,const int&);
-
-
     Q_INVOKABLE double getX();
     Q_INVOKABLE double getY();
+    //cosmetic stats for inventory menu
+    Q_INVOKABLE int getActorHP();
+    Q_INVOKABLE int getActorLV();
+    Q_INVOKABLE QString getActorName();
 
     QVariant data(const QModelIndex &index, int role) const override;
 
