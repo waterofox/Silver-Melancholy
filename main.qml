@@ -7,11 +7,10 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Action Test")
+    title: qsTr("Silver Melancholy")
     property double standartScale: 640.0
     property double standartScaleY: 480.0
-    property string jopka: "black";
-    color: jopka
+    color: "black"
 
     Image
     {
@@ -25,9 +24,6 @@ ApplicationWindow {
         {
             id:mapRoot
 
-            property int jopaX: 0
-            property int jopaY: 0
-
             onWidthChanged: {mapRoot.model.updateParentScalw(mapRoot.width,mapRoot.height)}
             onHeightChanged: {mapRoot.model.updateParentScalw(mapRoot.width,mapRoot.height)}
 
@@ -38,9 +34,6 @@ ApplicationWindow {
             cellHeight: parent.height/8
             cellWidth: parent.width/11
 
-            //onJopaXChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
-            //onJopaYChanged: {mapRoot.model.targetCell(jopaX*mapRoot.width/standartScale - mapRoot.height/22,jopaY*mapRoot.height/standartScaleY - mapRoot.height/16)}
-
             flickableDirection: Flickable.AutoFlickIfNeeded
             delegate:Rectangle
             {
@@ -50,7 +43,7 @@ ApplicationWindow {
                 color: "transparent";
                 border{
                     color:"yellow"
-                    width: 3
+                    width: 1*back.width/standartScale
                 }
                 Text {
                     text: display
@@ -80,15 +73,19 @@ ApplicationWindow {
 
             property int xScaled : xRelative*actorRoot.width/standartScale
             property int yScaled : yRelative*actorRoot.height/standartScaleY
-
+            //animations falgs
             property bool moveYFlag: false
             property bool moveXFlag: false
-            property int jopa : 0
+            //active event
+            property int ev : 0
+
+            //movement flags
+            property bool moveToRigth: false
+            property bool moveToLeft:  false
+            property bool moveToUp:    false
+            property bool movwToDown:  false
 
             flickableDirection: Flickable.AutoFlickIfNeeded
-
-            //onXRelativeChanged: {mapRoot.jopaX = xScaled}
-            //onYRelativeChanged: {mapRoot.jopaY = yScaled}
 
             focus: true
             Keys.onPressed:  {
@@ -97,8 +94,8 @@ ApplicationWindow {
                     if(questRoot.showFlag === false)
                     {
                         showAnimation.start()
-                        jopa = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
-                        questRoot.model.spokoynoSachenka(jopa);
+                        ev = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
+                        questRoot.model.spokoynoSachenka(ev);
                         questRoot.showFlag = true
                     }
                     else
