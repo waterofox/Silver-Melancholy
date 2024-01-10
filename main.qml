@@ -323,6 +323,12 @@ ApplicationWindow {
                     }
                 }
             }
+            GridView
+            {
+                id:menuView;
+                anchors.fill: parent
+
+            }
         }
     }
 }

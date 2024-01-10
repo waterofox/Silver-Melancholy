@@ -13,6 +13,8 @@ CppApplication {
         "GameAssets/f2.png",
         "Models/actormodel.cpp",
         "Models/actormodel.h",
+        "Models/menumodel.cpp",
+        "Models/menumodel.h",
         "Models/mygamemap.cpp",
         "Models/mygamemap.h",
         "Models/myquestmodel.cpp",
