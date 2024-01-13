@@ -110,7 +110,14 @@ ApplicationWindow {
                     {
                         if(menuView.activePosition === 0)
                         {
-                        menuView.visibleMenu = false}
+                            menuView.visibleMenu = false
+                            menuView.visibleSecondMenu = false
+                            return
+                        }
+                        if(menuView.activePosition ===1 || menuView.activePosition === 2)
+                        {
+                            menuView.visibleSecondMenu = true
+                        }
                     }
                 }
                 else
@@ -364,9 +371,11 @@ ApplicationWindow {
                 model:MenuModel{}
                 flickableDirection: Flickable.AutoFlickIfNeede
                 interactive: false
+
                 property bool visibleMenu: false
+                property bool visibleSecondMenu: false
+
                 property int activePosition: 0
-                property bool keyBoardPermission: true
                 delegate:  RowLayout
                 {
                     id:menuArea
@@ -428,6 +437,20 @@ ApplicationWindow {
                                     anchors.centerIn: parent
                                 }
                             }
+                        }
+                    }
+                    Rectangle
+                    {
+                        id:secondMenu
+                        Layout.minimumHeight: 300
+                        Layout.minimumWidth: 300
+                        Layout.topMargin: 80*menuView.height/standartScaleY
+                        visible: menuView.visibleSecondMenu
+                        color: "black"
+                        border
+                        {
+                            color:"white"
+                            width:3
                         }
                     }
                 }
