@@ -5,7 +5,7 @@ MyQuestModel::MyQuestModel(QObject *parent)
 {
     Q_UNUSED(parent)
     this->myQuests.insert(quests::VoidQuest," Никто не пришёл...");
-    this->myQuests.insert(quests::TestQuest,"Бип-Бип, это тестовый квест :3");
+    this->myQuests.insert(quests::TestQuest,"Лиса в луже. Распространите!");
 }
 
 MyQuestModel::~MyQuestModel()

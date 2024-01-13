@@ -55,7 +55,6 @@ ApplicationWindow {
                     sourceSize.height: parent.height
                     fillMode: Image.PreserveAspectFit
                 }
-
             }
         }
         GridView
@@ -71,6 +70,8 @@ ApplicationWindow {
             cellHeight: parent.height
             cellWidth: parent.width
 
+            property bool keyBoardPermission: true
+
             property int xScaled : xRelative*actorRoot.width/standartScale
             property int yScaled : yRelative*actorRoot.height/standartScaleY
             //animations falgs
@@ -81,74 +82,107 @@ ApplicationWindow {
 
             flickableDirection: Flickable.AutoFlickIfNeeded
 
-            focus: true
+            focus: keyBoardPermission
             Keys.onPressed:  {
-                if(event.key === Qt.Key_X)
+                if(event.key === Qt.Key_C)
                 {
-                    if(questRoot.showFlag === false)
+                    menuView.visibleMenu = true
+                }  
+                if(menuView.visibleMenu)
+                {
+                    if(event.key === Qt.Key_Down)
                     {
-                        showAnimation.start()
-                        ev = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
-                        questRoot.model.spokoynoSachenka(ev);
-                        questRoot.showFlag = true
+                        if(menuView.activePosition !=3)
+                        {
+                            menuView.activePosition += 1
+                        }
+                        //console.log(menuView.activePosition)
                     }
-                    else
+                    if(event.key === Qt.Key_Up)
                     {
-                        hideAnimation.start()
-                        questRoot.showFlag = false
+                        if(menuView.activePosition != 0)
+                        {
+                            menuView.activePosition -= 1
+                        }
+                        //onsole.log(menuView.activePosition)
+                    }
+                    if(event.key === Qt.Key_X)
+                    {
+                        if(menuView.activePosition === 0)
+                        {
+                        menuView.visibleMenu = false}
                     }
                 }
-                if(questRoot.showFlag) {return}
-                if(event.key === Qt.Key_Up)
+                else
                 {
+                    if(event.key === Qt.Key_X)
+                    {
+                        if(questRoot.showFlag === false)
+                        {
+                            showAnimation.start()
+                            ev = mapRoot.model.isQuest(actorRoot.xScaled,actorRoot.yScaled)
+                            questRoot.model.spokoynoSachenka(ev);
+                            questRoot.showFlag = true
+                        }
+                        else
+                        {
+                            hideAnimation.start()
+                            questRoot.showFlag = false
+                        }
+                    }
+                    if(questRoot.showFlag) {return}
+                    if(event.key === Qt.Key_Up)
+                    {
 
-                    if(mapRoot.model.checkColision(xScaled, yScaled,1))
-                    {
-                        actorRoot.model.setRelativePositon(3);
-                        moveYFlag = true
+                        if(mapRoot.model.checkColision(xScaled, yScaled,1))
+                        {
+                            actorRoot.model.setRelativePositon(3);
+                            moveYFlag = true
+                        }
+                        else
+                        {
+                            moveYFlag = false;
+                        }
                     }
-                    else
+                    if(event.key === Qt.Key_Down)
                     {
-                        moveYFlag = false;
+                        if(mapRoot.model.checkColision(xScaled,yScaled,3))
+                        {
+                            actorRoot.model.setRelativePositon(4);
+                            moveYFlag = true
+                        }
+                        else
+                        {
+                            moveYFlag = false;
+                        }
                     }
-                }
-                if(event.key === Qt.Key_Down)
-                {
-                    if(mapRoot.model.checkColision(xScaled,yScaled,3))
+                    if(event.key === Qt.Key_Right)
                     {
-                        actorRoot.model.setRelativePositon(4);
-                        moveYFlag = true
-                    }
-                    else
-                    {
-                        moveYFlag = false;
-                    }
-                }
-                if(event.key === Qt.Key_Right)
-                {
 
-                    if(mapRoot.model.checkColision(xScaled,yScaled,4))
-                    {
-                        actorRoot.model.setRelativePositon(1);
-                        moveXFlag = true
+                        if(mapRoot.model.checkColision(xScaled,yScaled,4))
+                        {
+                            actorRoot.model.setRelativePositon(1);
+                            moveXFlag = true
+                        }
+                        else
+                        {
+                            moveXFlag = false;
+                        }
                     }
-                    else
+                    if(event.key === Qt.Key_Left)
                     {
-                        moveXFlag = false;
+                        if(mapRoot.model.checkColision(xScaled,yScaled,2))
+                        {
+                            actorRoot.model.setRelativePositon(2);
+                            moveXFlag = true
+                        }
+                        else
+                        {
+                            moveXFlag = false;
+                        }
                     }
                 }
-                if(event.key === Qt.Key_Left)
-                {
-                    if(mapRoot.model.checkColision(xScaled,yScaled,2))
-                    {
-                        actorRoot.model.setRelativePositon(2);
-                        moveXFlag = true
-                    }
-                    else
-                    {
-                        moveXFlag = false;
-                    }
-                }
+
             }
             Keys.onReleased: {
                 if(event.key === Qt.Key_Up){moveYFlag = false;actorRoot.model.updateRelativePosition(actorRoot.xRelative,actorRoot.yRelative) }
@@ -327,7 +361,76 @@ ApplicationWindow {
             {
                 id:menuView;
                 anchors.fill: parent
+                model:MenuModel{}
+                flickableDirection: Flickable.AutoFlickIfNeede
+                interactive: false
+                property bool visibleMenu: false
+                property int activePosition: 0
+                property bool keyBoardPermission: true
+                delegate:  RowLayout
+                {
+                    id:menuArea
+                    anchors.fill:parent
+                    Rectangle
+                    {
+                        id:mainMenu
+                        visible: menuView.visibleMenu
+                        Layout.topMargin: 80*menuView.height/standartScaleY
+                        Layout.leftMargin: 80*menuView.width/standartScale
+                        Layout.minimumHeight: 300 * menuView.height/standartScaleY
+                        Layout.minimumWidth: 150 * menuView.width/standartScale
+                        color:  "black"
+                        border{
+                            color:"white"
+                            width: 3*menuView.width/standartScale
+                        }
 
+                        ListView
+                        {
+                            id:menuList
+                            anchors.fill: parent
+                            anchors.centerIn: parent
+                            interactive: false
+                            property int activePositionB: menuView.activePosition
+                            property int noneActivePositionB: 0
+                            onActivePositionBChanged:
+                            {
+                                boxes.setProperty(activePositionB,"colort","yellow")
+                                boxes.setProperty(noneActivePositionB,"colort","white")
+                                noneActivePositionB = activePositionB
+                            }
+                            model:     ListModel
+                            {
+                                id:boxes
+                                ListElement{
+                                    textt:"RETURN"
+                                    colort:"yellow"}
+                                ListElement{
+                                    textt:"INVENTORY"
+                                    colort:"white"}
+                                ListElement{
+                                    textt:"STATS"
+                                    colort:"white"}
+                                ListElement{
+                                    textt:"EXIT"
+                                    colort:"white"}
+                            }
+
+                            delegate:
+                            Rectangle
+                            {
+                                width: mainMenu.width
+                                height: mainMenu.height/4
+                                color:"transparent"
+                                Text {
+                                    text: textt
+                                    color: colort
+                                    anchors.centerIn: parent
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
