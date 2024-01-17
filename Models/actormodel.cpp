@@ -72,6 +72,11 @@ QString ActorModel::getActorName()
 {
     return this->newStats.nameActor;
 }
+
+QString ActorModel::getActorFrame()
+{
+    return this->newStats._relativeFrame;
+}
 QVariant ActorModel::data(const QModelIndex &index, int role) const
 {
     Q_UNUSED(index)

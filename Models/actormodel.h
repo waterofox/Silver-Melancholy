@@ -60,6 +60,7 @@ public:
     Q_INVOKABLE int getActorHP();
     Q_INVOKABLE int getActorLV();
     Q_INVOKABLE QString getActorName();
+    Q_INVOKABLE QString getActorFrame();
 
     QVariant data(const QModelIndex &index, int role) const override;
 

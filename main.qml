@@ -376,6 +376,7 @@ ApplicationWindow {
                 property bool visibleSecondMenu: false
 
                 property int activePosition: 0
+
                 delegate:  RowLayout
                 {
                     id:menuArea
@@ -388,6 +389,7 @@ ApplicationWindow {
                         Layout.leftMargin: 80*menuView.width/standartScale
                         Layout.minimumHeight: 300 * menuView.height/standartScaleY
                         Layout.minimumWidth: 150 * menuView.width/standartScale
+
                         color:  "black"
                         border{
                             color:"white"
@@ -442,6 +444,9 @@ ApplicationWindow {
                     Rectangle
                     {
                         id:secondMenu
+
+                        property bool statMenuVisible: true
+                        property bool invebtoryMenuVisible: false
                         Layout.minimumHeight: 300
                         Layout.minimumWidth: 300
                         Layout.topMargin: 80*menuView.height/standartScaleY
@@ -451,6 +456,78 @@ ApplicationWindow {
                         {
                             color:"white"
                             width:3
+                        }
+                        Rectangle
+                        {
+                            id:statMenu
+                            visible: parent.statMenuVisible
+                            color:"transparent"
+                            anchors.fill: parent
+
+                            property string actorName: actorRoot.model.getActorName()
+                            property int actorHP: actorRoot.model.getActorHP()
+                            property int actorLV: actorRoot.model.getActorLV()
+                            //property type name: value
+                            RowLayout
+                            {
+                                id:mainL
+                                ColumnLayout
+                                {
+                                    id:listOfStats
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth:  true
+                                    Layout.alignment: Qt.AlignTop
+                                    Layout.topMargin: 10*menuView.height/standartScaleY
+
+                                    Text {
+                                        id: aName
+                                        text: "Name: " + statMenu.actorName
+                                        color: "white"
+                                        Layout.leftMargin: 10*menuView.width/standartScale
+                                        Layout.alignment: Qt.AlignTop
+                                        //Layout.alignment: Qt.AlignHCenter
+                                    }
+                                    Text {
+                                        id: aHealth
+                                        text: "Health: " + statMenu.actorHP
+                                        color: "white"
+                                        Layout.leftMargin: 10*menuView.width/standartScale
+                                        Layout.alignment: Qt.AlignTop
+                                        //Layout.alignment: Qt.AlignHCenter
+                                    }
+                                    Text {
+                                        id: aLevel
+                                        text: "Level: " + statMenu.actorLV
+                                        color: "white"
+                                        Layout.leftMargin: 10*menuView.width/standartScale
+                                        Layout.alignment: Qt.AlignTop
+                                        //Layout.alignment: Qt.AlignHCenter
+                                    }
+                                }
+                                Rectangle
+                                {
+                                    id:actorIconArea
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth:  true
+                                    color:"transparent"
+                                    Image {
+                                        id: actorIcon
+                                        source: actorRoot.model.getActorFrame();
+                                        sourceSize.width: parent.width/2
+                                        fillMode: Image.PreserveAspectFit
+                                        anchors.centerIn: parent
+                                    }
+                                }
+                                anchors.fill:parent
+
+                            }
+                        }
+                        Rectangle
+                        {
+                            id:inventoryMenu
+                            visible: parent.invebtoryMenuVisible
+                            color:"green"
+                            anchors.fill: parent
                         }
                     }
                 }
