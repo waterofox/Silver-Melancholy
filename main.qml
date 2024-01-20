@@ -117,6 +117,11 @@ ApplicationWindow {
                         if(menuView.activePosition ===1 || menuView.activePosition === 2)
                         {
                             menuView.visibleSecondMenu = true
+                            if(menuView.activePosition ===2)
+                            {
+                                menuView.statMenuVisible = true
+                                return
+                            }
                         }
                     }
                 }
@@ -375,6 +380,9 @@ ApplicationWindow {
                 property bool visibleMenu: false
                 property bool visibleSecondMenu: false
 
+                property bool statMenuVisible: false
+                property bool invebtoryMenuVisible: false
+
                 property int activePosition: 0
 
                 delegate:  RowLayout
@@ -444,11 +452,9 @@ ApplicationWindow {
                     Rectangle
                     {
                         id:secondMenu
+                        Layout.minimumHeight: 300*menuView.height/standartScaleY
+                        Layout.minimumWidth: 300*menuView.width/standartScale
 
-                        property bool statMenuVisible: true
-                        property bool invebtoryMenuVisible: false
-                        Layout.minimumHeight: 300
-                        Layout.minimumWidth: 300
                         Layout.topMargin: 80*menuView.height/standartScaleY
                         visible: menuView.visibleSecondMenu
                         color: "black"
@@ -460,7 +466,7 @@ ApplicationWindow {
                         Rectangle
                         {
                             id:statMenu
-                            visible: parent.statMenuVisible
+                            visible: menuView.statMenuVisible
                             color:"transparent"
                             anchors.fill: parent
 
@@ -512,8 +518,8 @@ ApplicationWindow {
                                     color:"transparent"
                                     Image {
                                         id: actorIcon
-                                        source: actorRoot.model.getActorFrame();
-                                        sourceSize.width: parent.width/2
+                                        source: "qrc:/resources/GameAssets/icon.png"
+                                        sourceSize.width: parent.width
                                         fillMode: Image.PreserveAspectFit
                                         anchors.centerIn: parent
                                     }
@@ -525,7 +531,7 @@ ApplicationWindow {
                         Rectangle
                         {
                             id:inventoryMenu
-                            visible: parent.invebtoryMenuVisible
+                            visible: menuView.invebtoryMenuVisible
                             color:"green"
                             anchors.fill: parent
                         }
